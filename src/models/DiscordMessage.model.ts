@@ -1,4 +1,4 @@
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, DataType } from 'sequelize-typescript';
 
 interface DiscordMessageModelAttributes {
     id: string;
@@ -18,7 +18,7 @@ export class DiscordMessage extends Model<
     @Column
     id!: string;
 
-    @Column
+    @Column(DataType.TEXT)
     content!: string;
 
     @Column
