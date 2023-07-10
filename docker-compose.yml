@@ -8,7 +8,6 @@ services:
             - POSTGRES_USER=awesome_user
             - POSTGRES_PASSWORD=awesome_password
             - POSTGRES_DB=csgo_ban
-
         volumes:
             - database-volume:/var/lib/postgresql/data
         ports:

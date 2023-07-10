@@ -8,3 +8,5 @@ export const config = {
     PG_PASS: process.env.PG_PASSWORD ?? 'awesome_password',
     PG_NAME: process.env.PG_NAME ?? 'csgo_ban',
 };
+
+export const AUTH_TOKEN = process.env.AUTH_TOKEN;
