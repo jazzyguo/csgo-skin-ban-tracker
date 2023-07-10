@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { config } from './config';
 
-import { Profile, DiscordMessage } from './models';
+import { Profile, DiscordMessage, BanEvent, Inventory, Skin } from './models';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -10,5 +10,5 @@ export const sequelize = new Sequelize({
     username: config.PG_USER,
     password: config.PG_PASS,
     storage: ':memory:',
-    models: [Profile, DiscordMessage],
+    models: [Profile, DiscordMessage, BanEvent, Inventory, Skin],
 });
