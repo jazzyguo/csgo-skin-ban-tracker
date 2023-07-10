@@ -8,4 +8,9 @@ export class DiscordMessageRepository {
     ): Promise<void> {
         await DiscordMessage.create({ id, content, timestamp });
     }
+
+    public static async findById(id: string): Promise<DiscordMessage | null> {
+        const message = await DiscordMessage.findOne({ where: { id } });
+        return message ? message : null;
+    }
 }

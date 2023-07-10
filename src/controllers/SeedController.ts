@@ -4,7 +4,7 @@ import { SeedService, DiscordMessage } from '../services/SeedService';
 import axios from 'axios';
 
 export class SeedController {
-    public static async seedDiscordMessages(
+    public static async seedProfiles(
         req: Request,
         res: Response
     ): Promise<void> {
@@ -31,7 +31,7 @@ export class SeedController {
                     break;
                 }
 
-                await SeedService.seedDiscordMessagesFromArray(messages);
+                await SeedService.seedFromDiscordMessages(messages);
 
                 before = messages[messages.length - 1].id;
             }

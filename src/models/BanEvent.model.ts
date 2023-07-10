@@ -6,13 +6,14 @@ import {
     DataType,
     ForeignKey,
     BelongsTo,
+    Default,
 } from 'sequelize-typescript';
 import { Profile } from './Profile.model';
 import { DiscordMessage } from './DiscordMessage.model';
 
 interface BanEventModelAttributes {
     id: string;
-    is_banned: boolean;
+    isBanned: boolean;
     profileId: string;
     discordMessageId: string;
 }
@@ -25,11 +26,12 @@ export class BanEvent extends Model<
     BanEventCreationAttributes
 > {
     @PrimaryKey
-    @Column
+    @Default(DataType.UUIDV4) // Auto-generate UUID as the default value for id
+    @Column(DataType.UUID)
     id!: string;
 
     @Column(DataType.BOOLEAN)
-    is_banned!: boolean;
+    isBanned!: boolean;
 
     @ForeignKey(() => Profile)
     @Column
