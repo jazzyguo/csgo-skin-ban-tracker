@@ -47,13 +47,14 @@ export class SeedService {
                         // Create a new BanEvent with isBanned status and the extracted profile ID
                         await BanEventRepository.createBanEvent(
                             profileId,
-                            isBanned
+                            isBanned,
+                            message.id,
                         );
                     }
                 }
             } catch (error) {
                 console.error(
-                    `Error creating Discord message with ID ${message.id}:`,
+                    `Error seeding tables with message ID ${message.id}:`,
                     error
                 );
             }

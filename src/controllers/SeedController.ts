@@ -34,12 +34,14 @@ export class SeedController {
                 await SeedService.seedFromDiscordMessages(messages);
 
                 before = messages[messages.length - 1].id;
+
+                //break;
             }
 
-            res.send('Seed Discord messages completed');
+            res.send('Profiles seeds completed');
         } catch (error) {
-            console.error('Error seeding Discord messages:', error);
-            res.status(500).send('Error seeding Discord messages');
+            console.error('Error seeding profiles:', error);
+            res.status(500).send('Error seeding profiles');
         }
     }
 }
