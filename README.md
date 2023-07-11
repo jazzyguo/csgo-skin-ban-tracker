@@ -9,3 +9,5 @@ docker-compose up
 hit
 /seed/profiles
 /seed/inventories
+
+/counts/all to get all relevant item counts
