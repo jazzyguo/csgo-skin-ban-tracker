@@ -26,7 +26,7 @@ export class BanEvent extends Model<
     BanEventCreationAttributes
 > {
     @PrimaryKey
-    @Default(DataType.UUIDV4) // Auto-generate UUID as the default value for id
+    @Default(DataType.UUIDV4) 
     @Column(DataType.UUID)
     id!: string;
 

@@ -7,4 +7,8 @@ export class ProfileRepository {
             await Profile.create({ id });
         }
     }
+
+    public static async findAll(opts?: {}): Promise<Profile[]> {
+        return await Profile.findAll(opts);
+    }
 }

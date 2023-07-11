@@ -5,6 +5,8 @@ import {
     PrimaryKey,
     ForeignKey,
     BelongsTo,
+    DataType,
+    Default,
 } from 'sequelize-typescript';
 import { Profile } from './Profile.model';
 
@@ -21,7 +23,8 @@ export class Inventory extends Model<
     InventoryCreationAttributes
 > {
     @PrimaryKey
-    @Column
+    @Default(DataType.UUIDV4)
+    @Column(DataType.UUID)
     id!: string;
 
     @ForeignKey(() => Profile)
