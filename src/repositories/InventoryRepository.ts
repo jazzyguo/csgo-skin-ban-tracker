@@ -6,6 +6,13 @@ export class InventoryRepository {
         return inventory;
     }
 
+    public static async findInventoryByProfileId(
+        profileId: string
+    ): Promise<Inventory> {
+        const inventory = await Inventory.findOne({ where: { profileId } });
+        return inventory;
+    }
+
     public static async deleteInventory(inventoryId: string): Promise<void> {
         // Delete all associated inventory items
         await InventoryItem.destroy({ where: { inventoryId } });

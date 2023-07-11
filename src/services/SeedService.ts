@@ -33,7 +33,7 @@ export class SeedService {
                 const existingMessage = await DiscordMessageRepository.findById(
                     message.id
                 );
-                
+
                 if (existingMessage) {
                     continue; // Skip if message with the same ID already exists
                 }
@@ -79,6 +79,15 @@ export class SeedService {
     public static async seedInventories(profiles: Profile[]): Promise<void> {
         for (const profile of profiles) {
             try {
+                const existingInventory =
+                    InventoryItemRepository.findInventoryByProfileId(
+                        profile.id
+                    );
+
+                if (existingInventory) {
+                    continue; // Skip if inventory with the same profile Id already exists
+                }
+
                 // Fetch inventory data from API
                 const inventoryItems = await this.fetchInventoryData(
                     profile.id
