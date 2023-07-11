@@ -1,4 +1,4 @@
-import { Profile } from '../models';
+import { Profile, BanEvent, InventoryItem, Inventory } from '../models';
 
 export class ProfileRepository {
     public static async createProfile(id: string): Promise<void> {
@@ -10,5 +10,57 @@ export class ProfileRepository {
 
     public static async findAll(opts?: {}): Promise<Profile[]> {
         return await Profile.findAll(opts);
+    }
+
+    // Fetch all banned profiles using most recent BanEvent
+    public static async getBannedProfiles(): Promise<Profile[]> {
+        const bannedProfiles = await Profile.findAll({
+            include: [
+                {
+                    model: BanEvent,
+                    where: {
+                        isBanned: true,
+                    },
+                    order: [['createdAt', 'DESC']],
+                    limit: 1,
+                    required: true,
+                },
+                {
+                    model: Inventory,
+                    include: [
+                        {
+                            model: InventoryItem,
+                        },
+                    ],
+                },
+            ],
+        });
+        return bannedProfiles;
+    }
+
+    // Fetch all unbanned profiles using most recent BanEvent
+    public static async getUnbannedProfiles(): Promise<Profile[]> {
+        const unbannedProfiles = await Profile.findAll({
+            include: [
+                {
+                    model: BanEvent,
+                    where: {
+                        isBanned: false,
+                    },
+                    order: [['createdAt', 'DESC']],
+                    limit: 1,
+                    required: true,
+                },
+                {
+                    model: Inventory,
+                    include: [
+                        {
+                            model: InventoryItem,
+                        },
+                    ],
+                },
+            ],
+        });
+        return unbannedProfiles;
     }
 }

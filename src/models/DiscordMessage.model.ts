@@ -1,4 +1,12 @@
-import { Table, Column, Model, PrimaryKey, DataType } from 'sequelize-typescript';
+import {
+    Table,
+    Column,
+    Model,
+    PrimaryKey,
+    DataType,
+    HasOne,
+} from 'sequelize-typescript';
+import { BanEvent } from './BanEvent.model';
 
 interface DiscordMessageModelAttributes {
     id: string;
@@ -23,4 +31,7 @@ export class DiscordMessage extends Model<
 
     @Column
     timestamp!: Date;
+
+    @HasOne(() => BanEvent)
+    banEvent!: BanEvent;
 }

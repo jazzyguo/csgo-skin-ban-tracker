@@ -80,7 +80,7 @@ export class SeedService {
         for (const profile of profiles) {
             try {
                 const existingInventory =
-                    InventoryItemRepository.findInventoryByProfileId(
+                    await InventoryRepository.findInventoryByProfileId(
                         profile.id
                     );
 

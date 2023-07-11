@@ -7,8 +7,10 @@ import {
     BelongsTo,
     DataType,
     Default,
+    HasMany,
 } from 'sequelize-typescript';
 import { Profile } from './Profile.model';
+import { InventoryItem } from './InventoryItem.model';
 
 interface InventoryModelAttributes {
     id: string;
@@ -33,4 +35,7 @@ export class Inventory extends Model<
 
     @BelongsTo(() => Profile)
     profile!: Profile;
+
+    @HasMany(() => InventoryItem)
+    items: InventoryItem[];
 }
