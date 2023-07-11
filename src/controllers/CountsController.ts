@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { InventoryItemRepository } from '../repositories';
+import { CountsService } from '../services/CountsService';
 
 export class CountsController {
     public static async getAllCounts(
@@ -7,8 +7,7 @@ export class CountsController {
         res: Response
     ): Promise<void> {
         try {
-            const counts =
-                await InventoryItemRepository.getCountOfAllBannedItems();
+            const counts = await CountsService.getCountOfAllBannedItems();
             res.json(counts);
         } catch (error) {
             console.error('Error retrieving counts:', error);
