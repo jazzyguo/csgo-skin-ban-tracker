@@ -11,3 +11,14 @@ hit
 /seed/inventories
 
 /counts/all to get all relevant item counts
+
+```
+PG_HOST=database
+PG_NAME=csgo_ban
+PG_USER=awesome_user
+PG_PASS=awesome_password
+PORT=4000
+NODE_ENV=development
+DISCORD_AUTH_TOKEN=''
+STEAM_WEB_KEY=''
+```
