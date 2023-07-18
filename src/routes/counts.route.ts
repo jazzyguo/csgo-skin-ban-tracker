@@ -3,4 +3,4 @@ import { CountsController } from '../controllers/CountsController';
 
 export const countsRouter = express.Router();
 
-countsRouter.get('/counts/all', CountsController.getAllCounts);
+countsRouter.get('/counts/all', CountsController.getCountsForAllItems);

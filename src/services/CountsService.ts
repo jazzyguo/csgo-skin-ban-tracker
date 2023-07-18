@@ -2,10 +2,10 @@ import { ProfileRepository, InventoryRepository } from '../repositories';
 
 export class CountsService {
     /**
-     * Returns count of all items that have been banned, if an item is associated to an unbanned account
-     * then the count should go down
+     * Returns count of all/filtered items that have been banned, 
+     * if an item is associated to an unbanned account then the count should go down
      */
-    public static async getCountOfAllBannedItems({
+    public static async getCountOfBannedItems({
         category = '',
         family = '',
     }: {
