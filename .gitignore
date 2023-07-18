@@ -1,4 +1,4 @@
 node_modules
-database-volume
+database-volume/*
 .env
 .vscode
