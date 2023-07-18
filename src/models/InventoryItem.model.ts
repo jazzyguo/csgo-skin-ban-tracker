@@ -10,7 +10,7 @@ import {
     BeforeCreate,
 } from 'sequelize-typescript';
 import { Inventory } from './Inventory.model';
-import { InventoryItemRepository } from '../repositories';
+import { InventoryItemService } from '../services/InventoryItemService';
 
 export type Type =
     | 'glove'
@@ -70,9 +70,7 @@ export class InventoryItem extends Model<
     @BeforeCreate
     static calculateTypeAndFamily(instance: InventoryItem): void {
         const { type, family } =
-            InventoryItemRepository.calculateTypeAndFamilyFromName(
-                instance.name
-            );
+            InventoryItemService.calculateTypeAndFamilyFromName(instance.name);
 
         instance.type = type;
         instance.family = family;
