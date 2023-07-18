@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { CountsService } from '../services/CountsService';
-import { KNIFE_FAMILIES } from '../lib/consts';
 
 export class CountsController {
     /*
      * Returns counts by unique item skin
      */
-    public static async getCountsForAllItems(
+    public static async getCountsForAllBannedItems(
         req: Request,
         res: Response
     ): Promise<void> {
@@ -22,14 +21,14 @@ export class CountsController {
     /*
      * Returns counts by aggregated knife family, with wear rating
      */
-    public static async getCountsForKnives(
+    public static async getWearCountsForBannedKnivesByFamily(
         req: Request,
         res: Response
     ): Promise<void> {
         try {
-            const counts = await CountsService.getCountOfBannedItems({
-                type: 'knife',
-            });
+            const counts = await CountsService.getWearCountsForBannedItemsByFamily(
+                'knife'
+            );
             res.json(counts);
         } catch (error) {
             console.error('Error retrieving counts:', error);

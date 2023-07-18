@@ -17,7 +17,7 @@ export class InventoryRepository {
 
     public static async findInventoryWithItemsByProfileId(
         profileId: string,
-        where = {}
+        where = {},
     ): Promise<Inventory> {
         const inventory = await Inventory.findOne({
             where: { profileId },

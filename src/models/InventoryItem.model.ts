@@ -12,7 +12,7 @@ import {
 import { Inventory } from './Inventory.model';
 import { InventoryItemService } from '../services/InventoryItemService';
 
-export type Type =
+export type ItemType =
     | 'glove'
     | 'heavy'
     | 'knife'
@@ -24,7 +24,7 @@ export type Type =
     | 'pin'
     | '';
 
-export type Wear =
+export type ItemWear =
     | 'factory new'
     | 'minimal wear'
     | 'field-tested'
@@ -32,14 +32,14 @@ export type Wear =
     | 'battle-scarred'
     | '';
 
-interface InventoryItemModelAttributes {
+export interface InventoryItemModelAttributes {
     id: string;
     itemId: string;
     inventoryId: string;
     name: string;
-    type: Type;
+    type: ItemType;
     family: string;
-    wear: Wear;
+    wear: ItemWear;
 }
 
 interface InventoryItemCreationAttributes
@@ -68,13 +68,13 @@ export class InventoryItem extends Model<
     name!: string;
 
     @Column
-    type: string;
+    type: ItemType;
 
     @Column
     family: string;
 
     @Column
-    wear: string;
+    wear: ItemWear;
 
     @BelongsTo(() => Inventory)
     inventory!: Inventory;
