@@ -6,10 +6,10 @@ export class CountsService {
      * if an item is associated to an unbanned account then the count should go down
      */
     public static async getCountOfBannedItems({
-        category = '',
+        type = '',
         family = '',
     }: {
-        category?: string;
+        type?: string;
         family?: string;
     }): Promise<{
         [key: string]: number;
@@ -28,7 +28,7 @@ export class CountsService {
                     await InventoryRepository.findInventoryWithItemsByProfileId(
                         profile.id,
                         {
-                            ...(category ? { category } : {}),
+                            ...(type ? { type } : {}),
                             ...(family ? { family } : {}),
                         }
                     );

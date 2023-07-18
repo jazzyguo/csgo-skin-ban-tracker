@@ -12,12 +12,24 @@ import {
 import { Inventory } from './Inventory.model';
 import { InventoryItemRepository } from '../repositories';
 
+export type Type =
+    | 'glove'
+    | 'heavy'
+    | 'knife'
+    | 'pistol'
+    | 'rifle'
+    | 'smg'
+    | 'sticker'
+    | 'case'
+    | 'pin'
+    | '';
+
 interface InventoryItemModelAttributes {
     id: string;
     itemId: string;
     inventoryId: string;
     name: string;
-    category: string;
+    type: Type;
     family: string;
 }
 
@@ -47,7 +59,7 @@ export class InventoryItem extends Model<
     name!: string;
 
     @Column
-    category: string;
+    type: string;
 
     @Column
     family: string;
@@ -55,15 +67,14 @@ export class InventoryItem extends Model<
     @BelongsTo(() => Inventory)
     inventory!: Inventory;
 
-    // calculate item category and family from name
     @BeforeCreate
-    static calculateCategoryAndFamily(instance: InventoryItem): void {
-        const { category, family } =
-            InventoryItemRepository.calculateCategoryAndFamilyFromName(
+    static calculateTypeAndFamily(instance: InventoryItem): void {
+        const { type, family } =
+            InventoryItemRepository.calculateTypeAndFamilyFromName(
                 instance.name
             );
 
-        instance.category = category;
+        instance.type = type;
         instance.family = family;
     }
 }
