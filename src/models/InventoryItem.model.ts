@@ -7,8 +7,10 @@ import {
     BelongsTo,
     DataType,
     Default,
+    BeforeCreate,
 } from 'sequelize-typescript';
 import { Inventory } from './Inventory.model';
+import { InventoryItemRepository } from '../repositories';
 
 interface InventoryItemModelAttributes {
     id: string;
@@ -52,4 +54,16 @@ export class InventoryItem extends Model<
 
     @BelongsTo(() => Inventory)
     inventory!: Inventory;
+
+    // calculate item category and family from name
+    @BeforeCreate
+    static calculateCategoryAndFamily(instance: InventoryItem): void {
+        const { category, family } =
+            InventoryItemRepository.calculateCategoryAndFamilyFromName(
+                instance.name
+            );
+
+        instance.category = category;
+        instance.family = family;
+    }
 }

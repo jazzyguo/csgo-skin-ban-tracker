@@ -1,11 +1,17 @@
-import { ProfileRepository } from '../repositories';
+import { ProfileRepository, InventoryRepository } from '../repositories';
 
 export class CountsService {
     /**
      * Returns count of all items that have been banned, if an item is associated to an unbanned account
      * then the count should go down
      */
-    public static async getCountOfAllBannedItems(): Promise<{
+    public static async getCountOfAllBannedItems({
+        category = '',
+        family = '',
+    }: {
+        category?: string;
+        family?: string;
+    }): Promise<{
         [key: string]: number;
     }> {
         try {
@@ -17,8 +23,17 @@ export class CountsService {
             const counts: { [key: string]: number } = [
                 ...bannedProfiles,
                 ...unbannedProfiles,
-            ].reduce((acc, profile) => {
-                const inventoryItems = profile.inventory?.items;
+            ].reduce(async (acc, profile) => {
+                const inventory =
+                    await InventoryRepository.findInventoryWithItemsByProfileId(
+                        profile.id,
+                        {
+                            ...(category ? { category } : {}),
+                            ...(family ? { family } : {}),
+                        }
+                    );
+
+                const inventoryItems = inventory?.items;
 
                 if (inventoryItems) {
                     const isBanned =

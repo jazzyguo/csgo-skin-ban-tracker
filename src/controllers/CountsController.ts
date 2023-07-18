@@ -7,7 +7,7 @@ export class CountsController {
         res: Response
     ): Promise<void> {
         try {
-            const counts = await CountsService.getCountOfAllBannedItems();
+            const counts = await CountsService.getCountOfAllBannedItems({});
             res.json(counts);
         } catch (error) {
             console.error('Error retrieving counts:', error);

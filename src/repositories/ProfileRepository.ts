@@ -25,14 +25,6 @@ export class ProfileRepository {
                     limit: 1,
                     required: true,
                 },
-                {
-                    model: Inventory,
-                    include: [
-                        {
-                            model: InventoryItem,
-                        },
-                    ],
-                },
             ],
         });
         return bannedProfiles;
@@ -50,14 +42,6 @@ export class ProfileRepository {
                     order: [['createdAt', 'DESC']],
                     limit: 1,
                     required: true,
-                },
-                {
-                    model: Inventory,
-                    include: [
-                        {
-                            model: InventoryItem,
-                        },
-                    ],
                 },
             ],
         });

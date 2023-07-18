@@ -105,13 +105,11 @@ export class SeedService {
 
                 // Create inventory items for each item in the array
                 for (const item of inventoryItems) {
-                    await InventoryItemRepository.createInventoryItem({
-                        itemId: item.id,
-                        inventoryId: inventory.id,
-                        name: item.marketName,
-                        category: item.itemGroup,
-                        family: item.type,
-                    });
+                    await InventoryItemRepository.createInventoryItem(
+                        item.id,
+                        inventory.id,
+                        item.marketName
+                    );
                 }
             } catch (error) {
                 console.error(

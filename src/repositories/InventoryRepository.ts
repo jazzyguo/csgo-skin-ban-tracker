@@ -15,6 +15,22 @@ export class InventoryRepository {
         return inventory;
     }
 
+    public static async findInventoryWithItemsByProfileId(
+        profileId: string,
+        where = {}
+    ): Promise<Inventory> {
+        const inventory = await Inventory.findOne({
+            where: { profileId },
+            include: [
+                {
+                    model: InventoryItem,
+                    where,
+                },
+            ],
+        });
+        return inventory;
+    }
+
     public static async deleteInventory(inventoryId: string): Promise<void> {
         // Delete all associated inventory items
         await InventoryItem.destroy({ where: { inventoryId } });
