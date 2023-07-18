@@ -8,6 +8,7 @@ import {
 import { STEAM_WEB_KEY } from '../config';
 import axios from 'axios';
 import { Profile } from '../models';
+import { sleep } from '../lib/utils';
 
 export type DiscordMessage = {
     id: string;
@@ -18,6 +19,8 @@ export type DiscordMessage = {
 type Item = {
     id: string;
     marketName: string;
+    type: string;
+    itemGroup: string;
 };
 
 export class SeedService {
@@ -78,6 +81,8 @@ export class SeedService {
      */
     public static async seedInventories(profiles: Profile[]): Promise<void> {
         for (const profile of profiles) {
+            await sleep(1000);
+
             try {
                 const existingInventory =
                     await InventoryRepository.findInventoryByProfileId(
@@ -100,11 +105,13 @@ export class SeedService {
 
                 // Create inventory items for each item in the array
                 for (const item of inventoryItems) {
-                    await InventoryItemRepository.createInventoryItem(
-                        item.id,
-                        inventory.id,
-                        item.marketName
-                    );
+                    await InventoryItemRepository.createInventoryItem({
+                        itemId: item.id,
+                        inventoryId: inventory.id,
+                        name: item.marketName,
+                        category: item.itemGroup,
+                        family: item.type,
+                    });
                 }
             } catch (error) {
                 console.error(

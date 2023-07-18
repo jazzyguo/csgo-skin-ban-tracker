@@ -15,6 +15,8 @@ interface InventoryItemModelAttributes {
     itemId: string;
     inventoryId: string;
     name: string;
+    category: string;
+    family: string;
 }
 
 interface InventoryItemCreationAttributes
@@ -41,6 +43,12 @@ export class InventoryItem extends Model<
 
     @Column
     name!: string;
+
+    @Column
+    category: string;
+
+    @Column
+    family: string;
 
     @BelongsTo(() => Inventory)
     inventory!: Inventory;
