@@ -24,6 +24,14 @@ export type Type =
     | 'pin'
     | '';
 
+export type Wear =
+    | 'factory new'
+    | 'minimal wear'
+    | 'field-tested'
+    | 'well-worn'
+    | 'battle-scarred'
+    | '';
+
 interface InventoryItemModelAttributes {
     id: string;
     itemId: string;
@@ -31,6 +39,7 @@ interface InventoryItemModelAttributes {
     name: string;
     type: Type;
     family: string;
+    wear: Wear;
 }
 
 interface InventoryItemCreationAttributes
@@ -64,15 +73,21 @@ export class InventoryItem extends Model<
     @Column
     family: string;
 
+    @Column
+    wear: string;
+
     @BelongsTo(() => Inventory)
     inventory!: Inventory;
 
     @BeforeCreate
-    static calculateTypeAndFamily(instance: InventoryItem): void {
+    static calculateInfoFromName(instance: InventoryItem): void {
         const { type, family } =
             InventoryItemService.calculateTypeAndFamilyFromName(instance.name);
 
+        const wear = InventoryItemService.calculateWearFromName(instance.name);
+
         instance.type = type;
         instance.family = family;
+        instance.wear = wear;
     }
 }

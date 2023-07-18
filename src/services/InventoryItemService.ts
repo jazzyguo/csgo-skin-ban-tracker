@@ -1,4 +1,11 @@
-import { ITEM_FAMILIES_BY_TYPE } from '../lib/consts';
+import {
+    ITEM_FAMILIES_BY_TYPE,
+    FIELD_TESTED_STRING,
+    FACTORY_NEW_STRING,
+    MINIMAL_WEAR_STRING,
+    WELL_WORN_STRING,
+    BATTLE_SCARRED_STRING,
+} from '../lib/consts';
 
 export class InventoryItemService {
     public static calculateTypeAndFamilyFromName(name: string): {
@@ -8,13 +15,15 @@ export class InventoryItemService {
         let type = '';
         let family = '';
 
-        if (name.includes(' Pin')) {
+        const nameInLowerCase = name.toLocaleLowerCase();
+
+        if (nameInLowerCase.includes(' pin')) {
             type = 'pin';
             family = name;
-        } else if (name.includes('Sticker ')) {
+        } else if (nameInLowerCase.includes('sticker ')) {
             type = 'sticker';
             family = name;
-        } else if (name.includes(' Case')) {
+        } else if (nameInLowerCase.includes(' case')) {
             type = 'case';
             family = name;
         } else {
@@ -24,7 +33,7 @@ export class InventoryItemService {
             for (const itemType of itemTypes) {
                 const families: string[] = ITEM_FAMILIES_BY_TYPE[itemType];
                 const foundFamily: string = families.find((family) =>
-                    name.includes(family)
+                    nameInLowerCase.includes(family.toLocaleLowerCase())
                 );
 
                 if (foundFamily) {
@@ -39,5 +48,25 @@ export class InventoryItemService {
             type,
             family,
         };
+    }
+
+    public static calculateWearFromName(name: string): string {
+        let wear = '';
+
+        const nameInLowerCase = name.toLocaleLowerCase();
+
+        [
+            FIELD_TESTED_STRING,
+            FACTORY_NEW_STRING,
+            MINIMAL_WEAR_STRING,
+            WELL_WORN_STRING,
+            BATTLE_SCARRED_STRING,
+        ].forEach((wearString) => {
+            if (nameInLowerCase.includes(wearString)) {
+                wear = wearString;
+            }
+        });
+
+        return wear;
     }
 }
