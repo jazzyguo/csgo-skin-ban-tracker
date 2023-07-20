@@ -22,6 +22,7 @@ export type ItemType =
     | 'sticker'
     | 'case'
     | 'pin'
+    | 'graffiti'
     | '';
 
 export type ItemWear =

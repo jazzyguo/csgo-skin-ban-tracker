@@ -27,6 +27,9 @@ export class InventoryItemService {
         } else if (nameInLowerCase.includes(' case')) {
             type = 'case';
             family = name;
+        } else if (nameInLowerCase.includes('Sealed Graffiti ')) {
+            type ='graffiti';
+            family = name;
         } else {
             const itemTypes: ItemType[] = [
                 'glove',
